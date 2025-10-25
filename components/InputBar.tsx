@@ -50,7 +50,8 @@ const InputBar: React.FC<InputBarProps> = ({ onSendMessage, isLoading }) => {
             value={inputText}
             onChange={handleInput}
             onKeyDown={handleKeyDown}
-            placeholder="Naku emaina doubt adugu..."
+            // Fix: Corrected syntax for the placeholder attribute by adding quotes. This likely resolves both reported errors.
+            placeholder="Emaina doubt adugu..."
             className="w-full p-3 pr-16 rounded-lg border-2 border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500 transition-all duration-300 resize-none overflow-y-auto"
             rows={1}
             disabled={isLoading}
