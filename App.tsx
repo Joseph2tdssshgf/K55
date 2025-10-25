@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import ChatInterface from './components/ChatInterface';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
-import { ThemeProvider } from './contexts/ThemeContext';
-import { Message, ChatSession } from './types';
-import { getJosephSirAIResponse, initializeChat, generateImageForPrompt } from './services/geminiService';
-import * as chatHistoryService from './services/chatHistoryService';
+import ChatInterface from './components/ChatInterface.tsx';
+import Header from './components/Header.tsx';
+import Sidebar from './components/Sidebar.tsx';
+import { ThemeProvider } from './contexts/ThemeContext.tsx';
+import { Message, ChatSession } from './types.ts';
+import { getJosephSirAIResponse, initializeChat, generateImageForPrompt } from './services/geminiService.ts';
+import * as chatHistoryService from './services/chatHistoryService.ts';
 import type { Chat } from '@google/genai';
 
 // Conditionally enable history manipulation to prevent errors in sandboxed environments

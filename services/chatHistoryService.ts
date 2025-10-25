@@ -1,4 +1,4 @@
-import { ChatSession } from '../types';
+import { ChatSession } from '../types.ts';
 
 const DB_NAME = 'JosephSirAIDB';
 const DB_VERSION = 1;

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { Message } from '../types';
-import MessageDisplay from './MessageDisplay';
-import InputBar from './InputBar';
+import { Message } from '../types.ts';
+import MessageDisplay from './MessageDisplay.tsx';
+import InputBar from './InputBar.tsx';
 
 interface ChatInterfaceProps {
     messages: Message[];
