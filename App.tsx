@@ -4,15 +4,31 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { Message, ChatSession } from './types';
-import { getJosephSirAIResponse, initializeChat, generateImageForPrompt } from './services/geminiService';
+import { getJosephSirAIResponse, initializeChat, generateImageForPrompt, isApiKeySet } from './services/geminiService';
 import type { Chat } from '@google/genai';
+import ApiKeyModal from './components/ApiKeyModal';
 
 const App: React.FC = () => {
     const [chatSessions, setChatSessions] = useState<Record<string, ChatSession>>({});
     const [activeChatId, setActiveChatId] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [isSidebarOpen, setSidebarOpen] = useState(false);
+    const [isApiKeyRequired, setIsApiKeyRequired] = useState<boolean>(false);
     const chatInstances = useRef<Map<string, Chat>>(new Map());
+
+    useEffect(() => {
+        if (!isApiKeySet()) {
+            setIsApiKeyRequired(true);
+        }
+    }, []);
+
+    const handleSaveApiKey = (key: string) => {
+        sessionStorage.setItem('gemini-api-key', key);
+        setIsApiKeyRequired(false);
+        // Reloading the page is the simplest way to ensure all services 
+        // are re-initialized with the new API key.
+        window.location.reload();
+    };
 
     const welcomeMessage: Message = {
         role: 'model',
@@ -41,6 +57,8 @@ const App: React.FC = () => {
 
     // Load from localStorage on initial render
     useEffect(() => {
+        if (isApiKeyRequired) return; // Don't load anything if the key is missing
+
         try {
             const savedSessions = localStorage.getItem('chatSessions');
             const savedActiveId = localStorage.getItem('activeChatId');
@@ -65,7 +83,7 @@ const App: React.FC = () => {
             console.error("Failed to load chat history from localStorage", error);
             handleNewChat();
         }
-    }, [handleNewChat]);
+    }, [handleNewChat, isApiKeyRequired]);
 
     // Save to localStorage whenever sessions or activeId change
     useEffect(() => {
@@ -170,6 +188,10 @@ const App: React.FC = () => {
     }, [isLoading, activeChatId, chatSessions, getChatInstance]);
 
     const activeMessages = activeChatId ? chatSessions[activeChatId]?.messages : [];
+
+    if (isApiKeyRequired) {
+        return <ApiKeyModal onSave={handleSaveApiKey} />;
+    }
 
     return (
         <ThemeProvider>

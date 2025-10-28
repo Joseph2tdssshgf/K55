@@ -35,13 +35,23 @@ You: "Got it! Projectile motion problem. Manam step-by-step solve cheddam. First
 
 let ai: GoogleGenAI | null = null;
 
-const getAIInstance = () => {
-    if (!ai) {
-        if (!process.env.API_KEY) {
-            throw new Error("API_KEY environment variable not set");
-        }
-        ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// Helper function to check if an API key is available from any source
+export const isApiKeySet = (): boolean => {
+  return !!sessionStorage.getItem('gemini-api-key') || !!process.env.API_KEY;
+}
+
+const getAIInstance = (): GoogleGenAI => {
+    if (ai) {
+        return ai;
     }
+    // Prioritize sessionStorage key for portability, fallback to environment variable
+    const apiKey = sessionStorage.getItem('gemini-api-key') || process.env.API_KEY;
+
+    if (!apiKey) {
+        // This case is handled by the UI, but it's a safeguard.
+        throw new Error("API Key not found. Please provide an API key to use the application.");
+    }
+    ai = new GoogleGenAI({ apiKey: apiKey });
     return ai;
 }
 
