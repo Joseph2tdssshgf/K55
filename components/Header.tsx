@@ -1,6 +1,6 @@
 import React from 'react';
-import ThemeToggle from './ThemeToggle.tsx';
-import MenuIcon from './icons/MenuIcon.tsx';
+import ThemeToggle from './ThemeToggle';
+import MenuIcon from './icons/MenuIcon';
 
 interface HeaderProps {
     onToggleSidebar: () => void;

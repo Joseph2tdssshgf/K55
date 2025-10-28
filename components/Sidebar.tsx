@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChatSession } from '../types.ts';
-import PlusIcon from './icons/PlusIcon.tsx';
+import { ChatSession } from '../types';
+import PlusIcon from './icons/PlusIcon';
 
 interface SidebarProps {
   chatSessions: ChatSession[];
