@@ -199,7 +199,8 @@ const App: React.FC = () => {
                 <Header onToggleSidebar={() => setSidebarOpen(!isSidebarOpen)} />
                 <div className="flex flex-1 overflow-hidden relative">
                     <Sidebar 
-                        chatSessions={Object.values(chatSessions).sort((a, b) => parseInt(b.id.split('_')[1]) - parseInt(a.id.split('_')[1]))}
+                        // Fix: Explicitly typed `a` and `b` as `ChatSession` to fix type inference issue.
+                        chatSessions={Object.values(chatSessions).sort((a: ChatSession, b: ChatSession) => parseInt(b.id.split('_')[1]) - parseInt(a.id.split('_')[1]))}
                         activeChatId={activeChatId}
                         onNewChat={handleNewChat}
                         onSelectChat={handleSelectChat}
