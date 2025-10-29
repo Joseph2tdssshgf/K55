@@ -20,6 +20,19 @@
   </head>
   <body class="bg-slate-900">
     <div id="root"></div>
+    
+    <script>
+      window.process = {
+        env: {
+          // !!! SECURITY WARNING !!!
+          // This API key has been posted publicly and should be considered compromised.
+          // For your security, please generate a NEW key from Google AI Studio and replace this one.
+          // Do not share your new key publicly.
+          API_KEY: "AIzaSyBljpQ6VOQ-SSd7klvNnJzw6KHtU3fEJjg"
+        }
+      };
+    </script>
+    
     <!-- Update script tag to be processed by Babel -->
     <script type="text/babel" data-type="module" data-presets="react,typescript" src="./index.tsx"></script>
   </body>
